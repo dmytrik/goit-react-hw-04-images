@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+
 import propTypes from 'prop-types';
-import { SearchbarBox, Form, Input, SearchBtn } from './Searchbar.styled';
+import {
+  SearchbarBox,
+  Form,
+  Input,
+  SearchBtn,
+  IconSearch,
+} from './Searchbar.styled';
 
 class Searchbar extends Component {
   state = {
@@ -21,7 +28,9 @@ class Searchbar extends Component {
       <SearchbarBox>
         <Form onSubmit={this.submitSearchName}>
           <Input type="text" onChange={this.handleSearchChange}></Input>
-          <SearchBtn type="submit">Пошук</SearchBtn>
+          <SearchBtn type="submit">
+            <IconSearch />
+          </SearchBtn>
         </Form>
       </SearchbarBox>
     );

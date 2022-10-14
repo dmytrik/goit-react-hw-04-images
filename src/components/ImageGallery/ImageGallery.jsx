@@ -28,6 +28,7 @@ class ImageGallery extends Component {
       return;
     }
     if (prevState.currentPage !== this.state.currentPage) {
+      this.setState({ isLoadMore: false });
       this.reguestImages();
       return;
     }
@@ -42,13 +43,6 @@ class ImageGallery extends Component {
         .catch(() => {
           this.setState({ isLoader: false, isLoadMore: false });
           console.clear();
-          // this.setState({
-          //   error: 'Зображень більше немає(',
-          //   status: 'rejected',
-          // });
-          // setTimeout(() => {
-          //   this.setState({ status: 'idle' });
-          // });
         });
       const images = await fetch.data.hits;
       console.log(images);
@@ -72,13 +66,6 @@ class ImageGallery extends Component {
           images: [...prevState.images, ...images],
           error: null,
         }));
-        // this.setState({
-        //   error: 'Зображень більше немає(',
-        //   status: 'rejected',
-        // });
-        // setTimeout(() => {
-        //   this.setState({ status: 'idle' });
-        // });
         return;
       }
       if (countImg === this.state.images.length + images.length) {
@@ -98,13 +85,6 @@ class ImageGallery extends Component {
         images: [...prevState.images, ...images],
         error: null,
       }));
-      //   return Promise.reject(
-      //     new Error(`За запитом ${this.props.searchName} нічого не знайдено(`)
-      //   );
-      // })
-      // .catch(error => {
-      //   this.setState({ status: 'rejected', error });
-      // });
     }, 1000);
   }
 
