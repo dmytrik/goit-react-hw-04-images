@@ -45,8 +45,9 @@ class ImageGallery extends Component {
           console.clear();
         });
       const images = await fetch.data.hits;
-      console.log(images);
+      // console.log(images);
       const countImg = await fetch.data.totalHits;
+      // console.log(countImg);
 
       if (images.length === 0 && this.state.currentPage === 1) {
         this.setState({
@@ -68,7 +69,11 @@ class ImageGallery extends Component {
         }));
         return;
       }
-      if (countImg === this.state.images.length + images.length) {
+      if (
+        countImg === this.state.images.length + images.length ||
+        Number(countImg) < Number(this.state.images.length + images.length)
+      ) {
+        console.log('я тут');
         this.setState(prevState => ({
           status: 'resolved',
           isLoader: false,
