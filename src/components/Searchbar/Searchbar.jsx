@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import propTypes from 'prop-types';
 import {
@@ -9,33 +9,29 @@ import {
   IconSearch,
 } from './Searchbar.styled';
 
-class Searchbar extends Component {
-  state = {
-    searchName: '',
+const Searchbar = ({ submitName }) => {
+  const [searchName, setSearchName] = useState('');
+
+  const handleSearchChange = e => {
+    setSearchName(e.currentTarget.value);
   };
 
-  handleSearchChange = e => {
-    this.setState({ searchName: e.currentTarget.value });
-  };
-
-  submitSearchName = e => {
+  const submitSearchName = e => {
     e.preventDefault();
-    this.props.submitName(this.state.searchName);
+    submitName(searchName);
   };
 
-  render() {
-    return (
-      <SearchbarBox>
-        <Form onSubmit={this.submitSearchName}>
-          <Input type="text" onChange={this.handleSearchChange}></Input>
-          <SearchBtn type="submit">
-            <IconSearch />
-          </SearchBtn>
-        </Form>
-      </SearchbarBox>
-    );
-  }
-}
+  return (
+    <SearchbarBox>
+      <Form onSubmit={submitSearchName}>
+        <Input type="text" onChange={handleSearchChange}></Input>
+        <SearchBtn type="submit">
+          <IconSearch />
+        </SearchBtn>
+      </Form>
+    </SearchbarBox>
+  );
+};
 
 export default Searchbar;
 
