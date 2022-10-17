@@ -14,4 +14,5 @@ export const GalleryItem = styled.li`
   margin-top: 20px;
   height: 200px;
   flex-basis: calc((100% - 80px) / 4);
+  cursor: pointer;
 `;
