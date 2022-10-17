@@ -8,7 +8,14 @@ import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import LoadMore from 'components/LoadMore/LoadMore';
 import Loader from 'components/Loader/Loader';
 
-export const ImageGallery = ({ searchName, toggleModal, currentPage, setCurrentPage, setImages, images }) => {
+export const ImageGallery = ({
+  searchName,
+  toggleModal,
+  currentPage,
+  setCurrentPage,
+  setImages,
+  images,
+}) => {
   const [status, setStatus] = useState('idle');
   const [isLoader, setIsLoader] = useState(false);
   const [isLoadMore, setIsLoadMore] = useState(false);
@@ -17,16 +24,18 @@ export const ImageGallery = ({ searchName, toggleModal, currentPage, setCurrentP
   const PER_PAGE = 12;
 
   useEffect(() => {
-    if (searchName === "") {
+    if (searchName.trim() === '') {
+      setIsLoadMore(false);
       return;
     }
     reguestImages();
     setIsLoadMore(false);
-    // eslint-disable-next-line
+    //eslint-disable-next-line
   }, [searchName, currentPage]);
 
   useEffect(() => {
-    if (searchName === "") {
+    if (searchName.trim() === '') {
+      setIsLoadMore(false);
       return;
     }
     setStatus('panding');
@@ -34,7 +43,6 @@ export const ImageGallery = ({ searchName, toggleModal, currentPage, setCurrentP
 
   async function reguestImages() {
     setTimeout(async () => {
-
       const fetch = await axios
         .get(
           `https://pixabay.com/api/?key=${API_KEY}&q=${searchName}&image_type=photo&orientation=horizontal&page=${currentPage}&per_page=${PER_PAGE}`
@@ -45,9 +53,8 @@ export const ImageGallery = ({ searchName, toggleModal, currentPage, setCurrentP
           console.clear();
         });
       const img = await fetch.data.hits;
-      // console.log(images);
+
       const countImg = await fetch.data.totalHits;
-      // console.log(countImg);
 
       if (img.length === 0 && currentPage === 1) {
         setStatus('rejected');
@@ -83,7 +90,7 @@ export const ImageGallery = ({ searchName, toggleModal, currentPage, setCurrentP
       setImages(prev => [...prev, ...img]);
       setError(null);
     }, 1000);
-  };
+  }
 
   const loadMore = () => {
     setCurrentPage(prev => prev + 1);
